@@ -1,6 +1,7 @@
 """
 ipysheet setup
 """
+
 import os
 import json
 from pathlib import Path
@@ -47,8 +48,7 @@ js_command = combine_commands(
     ensure_targets(ensured_targets),
 )
 
-is_repo = os.path.exists(str(HERE / '.git'))
-if is_repo:
+if is_repo := os.path.exists(str(HERE / '.git')):
     cmdclass['jsdeps'] = js_command
 else:
     cmdclass['jsdeps'] = skip_if_exists(ensured_targets, js_command)

@@ -148,7 +148,7 @@ def cell(row, column, value=0., type=None, color=None, background_color=None,
     else:
         _last_sheet.cells = _last_sheet.cells+(c,)
     if label_left:
-        if column-1 < 0:
+        if column < 1:
             raise IndexError("cannot put label to the left of column 0")
         cell(row, column-1, value=label_left, font_weight='bold')
     return c
@@ -248,7 +248,7 @@ def cell_range(value,
 
     value = adapt_value(value)
     # instead of an if statements, we just use T to transpose or not when needed
-    T = (lambda x: x) if not transpose else default_transpose
+    T = default_transpose if transpose else (lambda x: x)
     # we work with the optionally transposed values for simplicity
     value = T(value)
     if squeeze_row:
@@ -351,8 +351,7 @@ function() {
 
 }()
 ''' % code_transpiled
-    renderer = Renderer(code=code, name=name)
-    return renderer
+    return Renderer(code=code, name=name)
 
 
 def _assign(object, value):

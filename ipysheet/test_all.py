@@ -550,7 +550,7 @@ def test_value_types_serialize(kernel):
     assert cell_scalar.value == 1.1
 
     cell_scalar.value = True
-    assert cell_scalar.value is True
+    assert cell_scalar.value
 
     cell_scalar.value = 'voila'
     assert cell_scalar.value == 'voila'

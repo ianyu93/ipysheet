@@ -8,7 +8,7 @@ from .serializer import create_value_serializer
 from .utils import transpose, adapt_value
 from ._version import __version__
 
-semver_range_frontend = "~" + __version__
+semver_range_frontend = f"~{__version__}"
 
 
 @widgets.register('ipysheet.Cell')
