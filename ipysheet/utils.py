@@ -36,13 +36,13 @@ def extract_cell_data(cell, data):
 
 
 def extract_data(sheet):
-    data = []
-    for _ in range(sheet.rows):
-        data.append([
+    data = [
+        [
             {'value': None, 'options': {'type': type(None)}}
             for _ in range(sheet.columns)
-        ])
-
+        ]
+        for _ in range(sheet.rows)
+    ]
     for cell in sheet.cells:
         extract_cell_data(cell, data)
 

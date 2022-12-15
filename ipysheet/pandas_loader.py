@@ -12,7 +12,7 @@ def _get_cell_value(arr):
     import pandas as pd
 
     if (arr.dtype.kind == 'M'):
-        return [_format_date(date) if not pd.isna(date) else None for date in arr]
+        return [None if pd.isna(date) else _format_date(date) for date in arr]
     else:
         return arr.tolist()
 
@@ -46,8 +46,7 @@ def from_dataframe(dataframe):
     rows = dataframe.index.tolist()
     cells = []
 
-    idx = 0
-    for c in columns:
+    for idx, c in enumerate(columns):
         arr = np.array(dataframe[c].values)
         cells.append(Cell(
             value=_get_cell_value(arr),
@@ -60,8 +59,6 @@ def from_dataframe(dataframe):
             squeeze_row=False,
             squeeze_column=True
         ))
-        idx += 1
-
     return Sheet(
         rows=len(rows),
         columns=len(columns),
@@ -120,7 +117,7 @@ def to_dataframe(sheet):
         column_headers = list(sheet.column_headers)
 
     if (type(sheet.row_headers) == bool):
-        row_headers = [i for i in range(len(data))]
+        row_headers = list(range(len(data)))
     else:
         row_headers = list(sheet.row_headers)
 
